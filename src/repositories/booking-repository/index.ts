@@ -16,8 +16,8 @@ async function findBookig(userId: number): Promise<Booking> {
 async function createBookig(userId: number, roomId: number): Promise<Booking> {
   return prisma.booking.create({
    data: {
-    roomId,
     userId,
+    roomId    
    }
   });
 }

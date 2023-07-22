@@ -2,6 +2,7 @@
 import { forbiddenError, notFoundError } from '@/errors';
 import bookingRepository from '@/repositories/booking-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
+import hotelRepository from '@/repositories/hotel-repository';
 import ticketsRepository from '@/repositories/tickets-repository';
 
 async function getBooking(userId: number) {
@@ -24,11 +25,12 @@ async function postBooking(userId: number, roomId: number) {
   if (!enrollment) throw notFoundError();
 
   const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
-  if (!ticket) throw notFoundError();
-
-  if(ticket.status === 'RESERVED' || ticket.TicketType.isRemote === true || 
+  if(!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote === true || 
     ticket.TicketType.includesHotel === false) throw forbiddenError();
 
+  const roomExist = await hotelRepository.findRoomsById(roomId);
+  if(!roomExist) throw notFoundError();
+  
   const booking = await bookingRepository.createBookig(userId, roomId);
   if (!booking) throw forbiddenError();
 
