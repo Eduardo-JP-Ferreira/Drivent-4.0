@@ -6,6 +6,10 @@ async function findBookig(userId: number): Promise<Booking[]> {
   return prisma.booking.findMany({
     where: {
       userId,
+    },
+    include: {
+      Room: true,
+      User: false,
     }
   });
 }
