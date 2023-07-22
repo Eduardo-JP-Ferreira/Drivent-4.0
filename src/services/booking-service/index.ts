@@ -5,8 +5,16 @@ import enrollmentRepository from '@/repositories/enrollment-repository';
 import ticketsRepository from '@/repositories/tickets-repository';
 
 async function getBooking(userId: number) {
+  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
+  if (!enrollment) throw notFoundError();
+
+  const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
+  if(!ticket || ticket.TicketType.includesHotel === false) throw notFoundError();
+
   const booking = await bookingRepository.findBookig(userId);
   if (!booking) throw notFoundError();
+
+  delete booking.createdAt, booking.updatedAt, booking.roomId, booking.userId
 
   return booking;
 }
