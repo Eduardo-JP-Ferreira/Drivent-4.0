@@ -1,5 +1,5 @@
 
-import { forbiddenError, notFoundError } from '@/errors';
+import { conflictError, forbiddenError, notFoundError, unauthorizedError } from '@/errors';
 import bookingRepository from '@/repositories/booking-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import hotelRepository from '@/repositories/hotel-repository';
@@ -21,15 +21,15 @@ async function getBooking(userId: number) {
 }
 
 async function postBooking(userId: number, roomId: number) {
-  const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
-  if (!enrollment) throw notFoundError();
+  // const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
+  // if (!enrollment) throw forbiddenError();
 
-  const roomExist = await hotelRepository.findRoomsById(roomId);
-  if(!roomExist) throw notFoundError();
+  // const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
+  // if(!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote || 
+  //   !ticket.TicketType.includesHotel) throw unauthorizedError();
 
-  const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
-  if(!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote === true || 
-    ticket.TicketType.includesHotel === false) throw forbiddenError();
+  // const roomExist = await hotelRepository.findRoomsById(roomId);
+  // if(!roomExist) throw notFoundError();
 
   const booking = await bookingRepository.createBookig(userId, roomId);
   if (!booking) throw forbiddenError();

@@ -3,7 +3,7 @@ import { prisma } from '@/config';
 import { CreateTicketParams } from '@/protocols';
 
 async function findBookig(userId: number): Promise<Booking> {
-  return prisma.booking.findFirst({
+  return await prisma.booking.findFirst({
     where: {
       userId,
     },
@@ -14,7 +14,7 @@ async function findBookig(userId: number): Promise<Booking> {
 }
 
 async function createBookig(userId: number, roomId: number): Promise<Booking> {
-  return prisma.booking.create({
+  return await prisma.booking.create({
    data: {
     userId,
     roomId    
