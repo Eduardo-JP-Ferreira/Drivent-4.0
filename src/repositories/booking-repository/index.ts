@@ -9,11 +9,20 @@ async function findBookig(userId: number): Promise<Booking[]> {
     },
     include: {
       Room: true,
-      User: false,
     }
+  });
+}
+
+async function createBookig(userId: number, roomId: number): Promise<Booking> {
+  return prisma.booking.create({
+   data: {
+    roomId,
+    userId,
+   }
   });
 }
 
 export default {
   findBookig,
+  createBookig
 };
