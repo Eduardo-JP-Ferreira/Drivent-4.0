@@ -47,5 +47,6 @@ async function updateBooking(id: number, roomId: number) {
 export default {
   findBookig,
   findBookingById,
-  createBookig
+  createBookig,
+  updateBooking,
 };

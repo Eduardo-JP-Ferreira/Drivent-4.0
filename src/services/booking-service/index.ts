@@ -53,7 +53,7 @@ async function putBooking(userId: number, roomId: number, bookingId: number) {
   const verifyBookingId = await bookingRepository.findBookingById(bookingId)
   if(verifyBookingId.userId !== userId) throw forbiddenError();
 
-  const update = await bookingRepository.createBookig(bookingId, roomId);
+  const update = await bookingRepository.updateBooking(bookingId, roomId);
   if (!update) throw forbiddenError();
 
   return update.id;
