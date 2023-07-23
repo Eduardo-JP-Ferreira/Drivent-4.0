@@ -2,7 +2,7 @@ import { Booking } from '@prisma/client';
 import { prisma } from '@/config';
 import { CreateTicketParams } from '@/protocols';
 
-async function findBookig(userId: number): Promise<Booking> {
+async function findBooking(userId: number): Promise<Booking> {
   return await prisma.booking.findFirst({
     where: {
       userId,
@@ -24,7 +24,7 @@ async function findBookingById(id: number): Promise<Booking> {
   });
 }
 
-async function createBookig(userId: number, roomId: number) {
+async function createBooking(userId: number, roomId: number) {
   return await prisma.booking.create({
     data: {
       userId,
@@ -45,8 +45,8 @@ async function updateBooking(id: number, roomId: number) {
 }
 
 export default {
-  findBookig,
+  findBooking,
   findBookingById,
-  createBookig,
+  createBooking,
   updateBooking,
 };

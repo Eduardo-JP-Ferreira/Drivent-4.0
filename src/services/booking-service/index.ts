@@ -12,7 +12,7 @@ async function getBooking(userId: number) {
   const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
   if(!ticket || ticket.TicketType.includesHotel === false) throw notFoundError();
 
-  const booking = await bookingRepository.findBookig(userId);
+  const booking = await bookingRepository.findBooking(userId);
   if (!booking) throw notFoundError();
 
   delete booking.createdAt, booking.updatedAt, booking.roomId, booking.userId
@@ -32,7 +32,7 @@ async function postBooking(userId: number, roomId: number) {
   if(!roomExist) throw notFoundError();
   if(roomExist.Booking.length === roomExist.capacity) throw forbiddenError();
 
-  const booking = await bookingRepository.createBookig(userId, roomId);
+  const booking = await bookingRepository.createBooking(userId, roomId);
   if (!booking) throw forbiddenError();
 
   return booking.id;
