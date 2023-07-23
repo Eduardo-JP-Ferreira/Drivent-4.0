@@ -1,4 +1,3 @@
-
 import { conflictError, forbiddenError, notFoundError, unauthorizedError } from '@/errors';
 import bookingRepository from '@/repositories/booking-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';

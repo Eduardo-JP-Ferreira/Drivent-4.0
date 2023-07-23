@@ -13,5 +13,4 @@ bookingRouter
   .post('/', validateBody(bookingSchema) ,postBooking)
   .put('/:bookingId', putBooking)
 
-
 export { bookingRouter };
