@@ -11,7 +11,7 @@ bookingRouter
   .all('/*', authenticateToken)
   .get('/health', (_req, res) => res.send('Booking OK!'))
   .get('/', getBooking)
-  .post('/', validateBody(bookingSchema), postBooking)
+  .post('/', postBooking)
 
 
 export { bookingRouter };

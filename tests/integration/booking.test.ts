@@ -16,6 +16,7 @@ import {
 } from '../factories';
 import app, { init } from '@/app';
 import { prisma } from '@/config';
+import { number } from 'joi';
 
 beforeAll(async () => {
   await init();
@@ -49,6 +50,9 @@ describe('when token is valid', () => {
     const response = await server.post(`/booking`).set('Authorization', `Bearer ${token}`).send(body);
 
     expect(response.status).toEqual(httpStatus.OK);
-    });
+    expect(response.body).toEqual({
+      bookingId: expect.any(Number)
+    })
+  });
 });
 

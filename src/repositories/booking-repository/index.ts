@@ -13,12 +13,12 @@ async function findBookig(userId: number): Promise<Booking> {
   });
 }
 
-async function createBookig(userId: number, roomId: number): Promise<Booking> {
+async function createBookig(userId: number, roomId: number) {
   return await prisma.booking.create({
-   data: {
-    userId,
-    roomId    
-   }
+    data: {
+      userId,
+      roomId,
+    },
   });
 }
 

@@ -26,7 +26,7 @@ async function postBooking(userId: number, roomId: number) {
 
   const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
   if(!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote || 
-    !ticket.TicketType.includesHotel) throw unauthorizedError();
+    !ticket.TicketType.includesHotel) throw forbiddenError();
 
   const roomExist = await hotelRepository.findRoomsById(roomId);
   if(!roomExist) throw notFoundError();
@@ -34,7 +34,7 @@ async function postBooking(userId: number, roomId: number) {
   const booking = await bookingRepository.createBookig(userId, roomId);
   if (!booking) throw forbiddenError();
 
-  return booking;
+  return booking.id;
 }
 
 const bookingService = { getBooking, postBooking };
