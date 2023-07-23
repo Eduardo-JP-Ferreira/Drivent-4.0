@@ -13,6 +13,17 @@ async function findBookig(userId: number): Promise<Booking> {
   });
 }
 
+async function findBookingById(id: number): Promise<Booking> {
+  return await prisma.booking.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      Room: true,
+    }
+  });
+}
+
 async function createBookig(userId: number, roomId: number) {
   return await prisma.booking.create({
     data: {
@@ -22,7 +33,19 @@ async function createBookig(userId: number, roomId: number) {
   });
 }
 
+async function updateBooking(id: number, roomId: number) {
+  return await prisma.booking.update({
+    where: {
+      id,
+    },
+    data: {
+      roomId,
+    }
+  });
+}
+
 export default {
   findBookig,
+  findBookingById,
   createBookig
 };
